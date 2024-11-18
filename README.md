@@ -1,5 +1,7 @@
 # `every()` - Time based media for p5.js
 
+# API Proposal - Request for Comments
+
 `every()` helps you schedule scene changes in p5.js and more, for easily working on time-based media.
 
 ```javascript
@@ -28,6 +30,15 @@ every(5).seconds
   .show(draw1) // shows for 5 seconds
   .show(draw2, 6)
   .show(draw3, 4);
+```
+
+Similarly, you can provide different interactions to different scenes.
+
+```javascript
+every(5)
+  .seconds.show(draw1, 5, {mousePressed: scene1MousePress, keyPressed: scene1Keypress})
+  .show(draw2, 6)
+  .show(draw3, 4, {mousePressed: scene3MousePress, keyPressed: scene3Keypress});
 ```
 
 You can also only transition scenes if a condition is met; in this case, a scene ends when it has `reportDone()`'d, which optionally takes a delay.
