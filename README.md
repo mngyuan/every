@@ -1,6 +1,6 @@
 # `every()` - Time based media for p5.js
 
-# API Proposal - Request for Comments
+# API Proposal - [Request for Comments](https://github.com/mngyuan/every/issues/new)
 
 `every()` helps you schedule scene changes in p5.js and more, for easily working on time-based media.
 
