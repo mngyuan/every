@@ -42,6 +42,15 @@ every(5).seconds
   .show(draw3, 4, {mousePressed: scene3MousePress, keyPressed: scene3Keypress});
 ```
 
+If you just need to change scenes when the mouse is clicked or a key is pressed,
+
+```javascript
+every(5).seconds
+  .show(draw1).untilKeyPressed([ENTER])
+  .show(draw2).untilMousePressed()
+  .show(draw3);
+```
+
 You can also only transition scenes if a condition is met; in this case, a scene ends when it has `reportDone()`'d, which optionally takes a delay.
 
 ```javascript
