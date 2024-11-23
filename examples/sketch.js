@@ -1,8 +1,13 @@
 function setup() {
   createCanvas(400, 400);
 
-  every(2).seconds.show(draw1).show(draw2).show(draw3);
-  print(getTargetFrameRate());
+  every(2)
+    .seconds.show(draw1)
+    .untilMousePressed()
+    .show(draw2)
+    .untilMousePressed()
+    .show(draw3)
+    .untilMousePressed();
 }
 
 function draw() {
