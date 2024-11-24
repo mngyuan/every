@@ -1,13 +1,14 @@
+let timer;
+
 function setup() {
   createCanvas(400, 400);
 
-  every(2)
+  every(5)
     .seconds.show(draw1)
     .untilMousePressed()
-    .show(draw2)
-    .untilMousePressed()
-    .show(draw3)
-    .untilMousePressed();
+    .show(draw2, 8)
+    .untilKeyPressed(ENTER)
+    .show(draw3);
 }
 
 function draw() {
@@ -20,6 +21,12 @@ function draw1() {
 
 function draw2() {
   background('blue');
+  if (!timer) {
+    timer = setTimeout(() => {
+      console.log('8s');
+      timer = null;
+    }, 8000);
+  }
 }
 function draw3() {
   background('green');
