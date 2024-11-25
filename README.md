@@ -1,7 +1,5 @@
 # `every()` - Time based media for p5.js
 
-# API Proposal - [Request for Comments](https://github.com/mngyuan/every/issues/new)
-
 `every()` helps you schedule scene changes in p5.js and more, for easily working on time-based media.
 
 ```javascript
@@ -51,6 +49,20 @@ every(5).seconds
   .show(draw3);
 ```
 
+A scene can be skipped if a certain condition is not met.
+
+```javascript
+every(5).seconds
+  .show(draw1)
+  .show(draw2).if(checkDraw2Visible);
+
+function checkDraw2Visible() {
+  return shouldShowDraw2;
+}
+```
+
+# Experimental APIs - [Request for Comments](https://github.com/mngyuan/every/issues/new)
+
 You can also only transition scenes if a condition is met; in this case, a scene ends when it has `reportDone()`'d, which optionally takes a delay.
 
 ```javascript
@@ -65,18 +77,7 @@ function draw1(reportDone) {
 }
 ```
 
-A scene can be skipped if a certain condition is not met.
-
-```javascript
-every(5).seconds
-  .show(draw1)
-  .show(draw2).if(checkDraw2Visible);
-function checkDraw2Visible() {
-  return shouldShowDraw2;
-}
-```
-
-*Experimental* - You can also provide a timestamped list of events to `every()` to schedule events at specific times. Useful for playing back recorded performances i.e. MIDI performances.
+You can also provide a timestamped list of events to `every()` to schedule events at specific times. Useful for playing back recorded performances i.e. MIDI performances.
 
 ```javascript
 const recordedEvents = {0: [1], 5000: [2], 10000: [3]};
