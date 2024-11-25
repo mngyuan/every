@@ -22,6 +22,16 @@ every(1).seconds
   .showAll(videos);
 ```
 
+# Installation
+
+Download [`p5.every.js`](https://github.com/mngyuan/every/blob/main/p5.every.js) from this repository, and include it in your HTML file.
+
+```javascript
+<script src="path/to/p5.every.js"></script>
+```
+
+# Usage
+
 You can provide different times to different scenes; in this case the number in `every()` indicates the default time if no time is provided for a scene.
 
 ```javascript
