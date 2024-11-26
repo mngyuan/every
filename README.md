@@ -3,11 +3,11 @@
 `every()` helps you schedule scene changes in p5.js and more, for easily working on time-based media.
 
 ```javascript
-// A 6 minute loop, with 3 different scenes, each 2 minutes long
-every(2).minutes
-  .show(draw1)
-  .show(draw2)
-  .show(draw3);
+  // A 6 minute loop, with 3 different scenes, each 2 minutes long
+  every(2).minutes
+    .show(draw1)
+    .show(draw2)
+    .show(draw3);
 ```
 ```javascript
 every(1).hours
@@ -15,7 +15,7 @@ every(1).hours
   .show(draw2);
 ```
 
-The 24-hour clock piece by Christian Marclay: 
+The Clock by Christian Marclay: 
 ```javascript
 const videos = [vid1200, vid1201, ..., vid2359];
 every(1).seconds
@@ -30,15 +30,17 @@ Download [`p5.every.js`](https://github.com/mngyuan/every/blob/main/p5.every.js)
 <script src="path/to/p5.every.js"></script>
 ```
 
+Replace `path/to/p5.every.js` with the actual path of where you've placed `p5.every.js`.
+
 # Usage
 
 You can provide different times to different scenes; in this case the number in `every()` indicates the default time if no time is provided for a scene.
 
 ```javascript
 every(5).seconds
-  .show(draw1) // shows for 5 seconds
-  .show(draw2, 6)
-  .show(draw3, 4);
+  .show(draw1)     // shows for 5 seconds
+  .show(draw2, 6)  // shows for 6 seconds
+  .show(draw3, 4); // shows for 4 seconds
 ```
 
 Similarly, you can provide different interactions to different scenes.
