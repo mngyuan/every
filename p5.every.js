@@ -58,6 +58,15 @@ p5.prototype.every = function (n) {
         });
         return myself;
       },
+      showAll: function (drawFs) {
+        _context.sceneFs = _context.sceneFs.concat(
+          drawFs.map((drawF) => ({
+            drawF,
+            len: n * p5.prototype.getTargetFrameRate() * multiplier,
+          })),
+        );
+        return myself;
+      },
       untilMousePressed: function () {
         // Assume the last one is what we're working on
         _context.sceneFs[_context.sceneFs.length - 1].untilMousePressed = true;
