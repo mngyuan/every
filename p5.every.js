@@ -46,7 +46,6 @@ p5.prototype.every = function (n) {
     skippedFrames: 0,
     timerPaused: false,
   };
-  console.debug(p5.prototype);
 
   const genTimeObject = (multiplier) => {
     const myself = {
@@ -170,6 +169,10 @@ p5.prototype.chooseScene = function () {
         _context.keyboardListeners.push(listener);
       }
 
+      if (_context.scene !== -1) {
+        pop();
+      }
+      push();
       _context.scene = i;
     }
   }
