@@ -3,11 +3,11 @@
 `every()` helps you schedule scene changes in p5.js and more, for easily working on time-based media.
 
 ```javascript
-  // A 6 minute loop, with 3 different scenes, each 2 minutes long
-  every(2).minutes
-    .show(draw1)
-    .show(draw2)
-    .show(draw3);
+// A 6 minute loop, with 3 different scenes, each 2 minutes long
+every(2).minutes
+  .show(draw1)
+  .show(draw2)
+  .show(draw3);
 ```
 ```javascript
 every(1).hours
@@ -15,7 +15,7 @@ every(1).hours
   .show(draw2);
 ```
 
-The Clock by Christian Marclay: 
+[The Clock by Christian Marclay](https://editor.p5js.org/mngyuan/sketches/9_9gpe_Vh): 
 ```javascript
 const videos = [vid1200, vid1201, ..., vid2359];
 every(1).seconds
@@ -26,13 +26,30 @@ every(1).seconds
 
 Download [`p5.every.js`](https://github.com/mngyuan/every/blob/main/p5.every.js) from this repository, and include it in your HTML file.
 
-```javascript
+```html
 <script src="path/to/p5.every.js"></script>
 ```
 
 Replace `path/to/p5.every.js` with the actual path of where you've placed `p5.every.js`.
 
+Or use the hosted version
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/mngyuan/every/p5.every.js"></script>
+```
+
 # Usage
+
+In p5.js, `every()` belongs in the `setup()` function:
+```javascript
+function setup() {
+  createCanvas(400, 400);
+  every().seconds
+    .show(drawScene1)
+    .show(drawScene2);
+}
+```
+If no duration is passed to every, the duration defaults to 1.
 
 You can provide different times to different scenes; in this case the number in `every()` indicates the default time if no time is provided for a scene.
 
@@ -69,7 +86,7 @@ every(5).seconds
   .show(draw2).if(checkDraw2Visible);
 
 function checkDraw2Visible() {
-  return shouldShowDraw2;
+  return keyPressed;
 }
 ```
 

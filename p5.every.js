@@ -35,7 +35,7 @@ const calculateCurrentScene = (frameCount) => {
   return [i, len];
 };
 
-p5.prototype.every = function (n) {
+p5.prototype.every = function (n = 1) {
   // Reset context; we want every() to be like a setup(),
   // called once per sketch to register
   _context = {
