@@ -5,7 +5,7 @@ function setup() {
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
 
-  every(1).seconds.show(draw1).show(draw2);
+  every(1).seconds.draw(draw1).draw(draw2);
 }
 
 function draw() {

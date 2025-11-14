@@ -3,11 +3,14 @@ function setup() {
 
   // untilMousePressed() will wait until the mouse is pressed, ignoring the time
   // interval in every()
-  every(2).seconds
-    .show(draw1).untilMousePressed()
-    .show(draw2).untilMousePressed()
+  every(2)
+    .seconds.draw(draw1)
+    .untilMousePressed()
+    .draw(draw2)
+    .untilMousePressed()
     // unless you specifically give a time interval to a specific scene
-    .show(draw3, 5).untilMousePressed();
+    .draw(draw3, 5)
+    .untilMousePressed();
 }
 
 function draw() {

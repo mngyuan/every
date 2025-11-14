@@ -3,11 +3,14 @@ function setup() {
 
   // untilKeyPressed() will wait until a key is pressed, ignoring the time
   // interval in every()
-  every(2).seconds
-    .show(draw1).untilKeyPressed()
-    .show(draw2).untilKeyPressed()
+  every(2)
+    .seconds.draw(draw1)
+    .untilKeyPressed()
+    .draw(draw2)
+    .untilKeyPressed()
     // you can also wait for only a specific key, by passing a key code
-    .show(draw3).untilKeyPressed(ENTER);
+    .draw(draw3)
+    .untilKeyPressed(ENTER);
 }
 
 function draw() {

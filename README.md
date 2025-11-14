@@ -5,21 +5,21 @@
 ```javascript
 // A 6 minute loop, with 3 different scenes, each 2 minutes long
 every(2).minutes
-  .show(draw1)
-  .show(draw2)
-  .show(draw3);
+  .draw(draw1)
+  .draw(draw2)
+  .draw(draw3);
 ```
 ```javascript
 every(1).hours
-  .show(draw1)
-  .show(draw2);
+  .draw(draw1)
+  .draw(draw2);
 ```
 
 [The Clock by Christian Marclay](https://editor.p5js.org/mngyuan/sketches/9_9gpe_Vh): 
 ```javascript
 const videos = [vid1200, vid1201, ..., vid2359];
 every(1).seconds
-  .showAll(videos);
+  .drawAll(videos);
 ```
 
 # Installation
@@ -45,8 +45,8 @@ In p5.js, `every()` belongs in the `setup()` function:
 function setup() {
   createCanvas(400, 400);
   every().seconds
-    .show(drawScene1)
-    .show(drawScene2);
+    .draw(drawScene1)
+    .draw(drawScene2);
 }
 ```
 If no duration is passed to every, the duration defaults to 1.
@@ -55,35 +55,35 @@ You can provide different times to different scenes; in this case the number in 
 
 ```javascript
 every(5).seconds
-  .show(draw1)     // shows for 5 seconds
-  .show(draw2, 6)  // shows for 6 seconds
-  .show(draw3, 4); // shows for 4 seconds
+  .draw(draw1)     // shows for 5 seconds
+  .draw(draw2, 6)  // shows for 6 seconds
+  .draw(draw3, 4); // shows for 4 seconds
 ```
 
 Similarly, you can provide different interactions to different scenes.
 
 ```javascript
 every(5).seconds
-  .show(draw1, 5, {mousePressed: scene1MousePress, keyPressed: scene1Keypress})
-  .show(draw2, 6)
-  .show(draw3, 4, {mousePressed: scene3MousePress, keyPressed: scene3Keypress});
+  .draw(draw1, 5, {mousePressed: scene1MousePress, keyPressed: scene1Keypress})
+  .draw(draw2, 6)
+  .draw(draw3, 4, {mousePressed: scene3MousePress, keyPressed: scene3Keypress});
 ```
 
 If you just need to change scenes when the mouse is clicked or a key is pressed,
 
 ```javascript
 every(5).seconds
-  .show(draw1).untilKeyPressed([ENTER])
-  .show(draw2).untilMousePressed()
-  .show(draw3);
+  .draw(draw1).untilKeyPressed([ENTER])
+  .draw(draw2).untilMousePressed()
+  .draw(draw3);
 ```
 
 A scene can be skipped if a certain condition is not met.
 
 ```javascript
 every(5).seconds
-  .show(draw1)
-  .show(draw2).if(checkDraw2Visible);
+  .draw(draw1)
+  .draw(draw2).if(checkDraw2Visible);
 
 function checkDraw2Visible() {
   return keyPressed;
@@ -96,8 +96,8 @@ You can also only transition scenes if a condition is met; in this case, a scene
 
 ```javascript
 every(5).seconds
-  .show(draw1).until()
-  .show(draw2);
+  .draw(draw1).until()
+  .draw(draw2);
 function draw1(reportDone) {
   if (mouseIsPressed) {
     // end 2s after mouse press

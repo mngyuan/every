@@ -49,19 +49,38 @@ p5.prototype.every = function (n = 1) {
 
   const genTimeObject = (multiplier) => {
     const myself = {
-      show: function (drawF, len) {
+      draw: function (drawF, len) {
         _context.sceneFs.push({
           drawF,
           passedLen: len,
-          len: (len ?? n) * p5.prototype.getTargetFrameRate() * multiplier,
+          len: (len ?? n) * multiplier,
         });
         return myself;
       },
-      showAll: function (drawFs) {
+      drawAll: function (drawFs) {
         _context.sceneFs = _context.sceneFs.concat(
           drawFs.map((drawF) => ({
             drawF,
-            len: n * p5.prototype.getTargetFrameRate() * multiplier,
+            len: n * multiplier,
+          })),
+        );
+        return myself;
+      },
+      do: function (F, len) {
+        _context.sceneFs.push({
+          drawF: F,
+          passedLen: len,
+          len: (len ?? n) * multiplier,
+          isMomentary: true,
+        });
+        return myself;
+      },
+      doAll: function (Fs) {
+        _context.sceneFs = _context.sceneFs.concat(
+          Fs.map((drawF) => ({
+            drawF,
+            len: n * multiplier,
+            isMomentary: true,
           })),
         );
         return myself;
@@ -87,12 +106,16 @@ p5.prototype.every = function (n = 1) {
     return myself;
   };
 
-  const secondsObj = genTimeObject(1);
-  const minutesObj = genTimeObject(60);
-  const hoursObj = genTimeObject(60 * 60);
-  const daysObj = genTimeObject(60 * 60 * 24);
+  const framesObj = genTimeObject(1);
+  const secondsObj = genTimeObject(p5.prototype.getTargetFrameRate() * 1);
+  const minutesObj = genTimeObject(p5.prototype.getTargetFrameRate() * 60);
+  const hoursObj = genTimeObject(p5.prototype.getTargetFrameRate() * 60 * 60);
+  const daysObj = genTimeObject(
+    p5.prototype.getTargetFrameRate() * 60 * 60 * 24,
+  );
 
   return {
+    frames: framesObj,
     seconds: secondsObj,
     minutes: minutesObj,
     hours: hoursObj,
@@ -115,6 +138,13 @@ p5.prototype.chooseScene = function () {
         _context.keyboardListeners.map((listener) =>
           document.removeEventListener('keydown', listener),
         );
+        // Reset run flag
+        if (
+          _context.sceneFs[_context.scene] &&
+          _context.sceneFs[_context.scene].isMomentary
+        ) {
+          _context.sceneFs[_context.scene].hasRun = false;
+        }
         // Check new scene(s)'s predicate
         let checked = [];
         while (_context.sceneFs[i].if && _context.sceneFs[i].if()) {
@@ -178,8 +208,16 @@ p5.prototype.chooseScene = function () {
       }
     }
 
-    _context.sceneFs[_context.scene] &&
-      _context.sceneFs[_context.scene].drawF();
+    if (_context.sceneFs[_context.scene] != undefined) {
+      if (_context.sceneFs[_context.scene].isMomentary) {
+        if (!_context.sceneFs[_context.scene].hasRun) {
+          _context.sceneFs[_context.scene].drawF();
+          _context.sceneFs[_context.scene].hasRun = true;
+        }
+      } else {
+        _context.sceneFs[_context.scene].drawF();
+      }
+    }
   }
 };
 p5.prototype.registerMethod('post', p5.prototype.chooseScene);

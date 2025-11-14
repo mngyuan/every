@@ -1,10 +1,10 @@
 function setup() {
   createCanvas(400, 400);
 
-  every(2).seconds
-    .show(draw1)
-    .show(draw2, 4)  // show for 4 seconds
-    .show(draw3, 8); // show for 8 seconds
+  every(2)
+    .seconds.draw(draw1)
+    .draw(draw2, 4) // show for 4 seconds
+    .draw(draw3, 8); // show for 8 seconds
 }
 
 function draw() {
@@ -22,4 +22,3 @@ function draw2() {
 function draw3() {
   background('green');
 }
-

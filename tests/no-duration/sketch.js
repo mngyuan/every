@@ -4,7 +4,7 @@ function setup() {
   createCanvas(400, 400);
   textAlign(CENTER, CENTER);
 
-  every().seconds.show(draw1).show(draw2);
+  every().seconds.draw(draw1).draw(draw2);
 }
 
 function draw() {
