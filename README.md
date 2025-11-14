@@ -51,4 +51,4 @@ every(5)
   .do(draw4).if(shouldDraw4);
 ```
 
-Read more in the [documentation](DOCS.md).
+Read more in the [documentation](DOCS.md) or check out the [examples](examples/).
