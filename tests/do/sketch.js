@@ -1,3 +1,6 @@
+// Text should appear once every second in random positions,
+// not continuously
+
 function setup() {
   createCanvas(400, 400);
   every().seconds.do(do1).do(do2);

@@ -1,3 +1,31 @@
+/*
+# Experimental APIs - [Request for Comments](https://github.com/mngyuan/every/issues/new)
+
+You can also only transition scenes if a condition is met; in this case, a scene ends when it has `reportDone()`'d, which optionally takes a delay.
+
+```javascript
+every(5).seconds
+  .draw(draw1).until()
+  .draw(draw2);
+function draw1(reportDone) {
+  if (mouseIsPressed) {
+    // end 2s after mouse press
+    reportDone(2000);
+  }
+}
+```
+
+You can also provide a timestamped list of events to `every()` to schedule events at specific times. Useful for playing back recorded performances i.e. MIDI performances.
+
+```javascript
+const recordedEvents = {0: [1], 5000: [2], 10000: [3]};
+every(recordedEvents).timestamp
+  .react(1, draw1)
+  .react(2, draw2)
+  .react(3, draw3);
+```
+*/
+
 // Should it be cycle or do (or omit entirely)
 every(5).seconds.cycle([draw1, draw2, draw3]);
 every(5).seconds.do(draw1);
