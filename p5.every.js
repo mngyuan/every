@@ -190,7 +190,10 @@ p5.prototype.chooseScene = function () {
             // check keyCode, which is deprecated, but p5 still uses
             if (
               _context.sceneFs[_context.scene].untilKeyPressed === true ||
-              e.keyCode == _context.sceneFs[_context.scene].untilKeyPressed
+              e.keyCode == _context.sceneFs[_context.scene].untilKeyPressed ||
+              // keyCodes were updated in p5.js 2
+              (VERSION[0] === '2' &&
+                e.key === _context.sceneFs[_context.scene].untilKeyPressed)
             ) {
               // just skip to the start of the next scene
               skipToNextScene(this.frameCount, len);
@@ -220,5 +223,15 @@ p5.prototype.chooseScene = function () {
     }
   }
 };
-p5.prototype.registerMethod('post', p5.prototype.chooseScene);
-p5.prototype.unregisterMethod('remove', p5.prototype.chooseScene);
+if (p5.registerAddon) {
+  // p5 2.x
+  const addon = function (p5, fn, lifecycles) {
+    lifecycles.postdraw = p5.prototype.chooseScene;
+    lifecycles.remove = p5.prototype.chooseScene;
+  };
+  p5.registerAddon(addon);
+} else {
+  // p5 1.x
+  p5.prototype.registerMethod('post', p5.prototype.chooseScene);
+  p5.prototype.unregisterMethod('remove', p5.prototype.chooseScene);
+}
