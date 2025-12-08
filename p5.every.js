@@ -192,7 +192,8 @@ p5.prototype.chooseScene = function () {
               _context.sceneFs[_context.scene].untilKeyPressed === true ||
               e.keyCode == _context.sceneFs[_context.scene].untilKeyPressed ||
               // keyCodes were updated in p5.js 2
-              (VERSION[0] === '2' &&
+              (VERSION &&
+                VERSION[0] === '2' &&
                 e.key === _context.sceneFs[_context.scene].untilKeyPressed)
             ) {
               // just skip to the start of the next scene
