@@ -5,6 +5,7 @@
 ```javascript
 function setup() {
   createCanvas(400, 400);
+  // Swaps between drawScene1 and drawScene2, drawing for 1 second each
   every().seconds
     .draw(drawScene1)
     .draw(drawScene2);
