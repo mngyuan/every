@@ -22,7 +22,7 @@ every(1).hours
 Add the following to the `<head>` in your `index.html`
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/mngyuan/every/p5.every.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mngyuan/every@1.2.0/p5.every.js"></script>
 ```
 
 # Usage
