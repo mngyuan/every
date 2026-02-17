@@ -1,3 +1,4 @@
+// p5.every.js v1.2.0
 let _context;
 
 const skipToNextScene = (frameCount, len) => {
@@ -32,7 +33,13 @@ const calculateCurrentScene = (frameCount) => {
       break;
     }
   }
-  return [i, len];
+  // Also compute the cycle; how many times we've looped through all of the
+  // scenes; this enables us to detect when we loop back to the first and only
+  // scene (i.e. the single-task test case)
+  const cycle = Math.floor(
+    (frameCount + _context.skippedFrames) / totalLenOfScenes,
+  );
+  return [i, len, cycle];
 };
 
 p5.prototype.every = function (n = 1) {
@@ -44,6 +51,7 @@ p5.prototype.every = function (n = 1) {
     mouseListeners: [],
     keyboardListeners: [],
     skippedFrames: 0,
+    cycle: -1,
     timerPaused: false,
   };
 
@@ -126,9 +134,10 @@ p5.prototype.every = function (n = 1) {
 p5.prototype.chooseScene = function () {
   if (_context != undefined) {
     if (!_context.timerPaused) {
-      let [i, len] = calculateCurrentScene(this.frameCount);
+      let [i, len, cycle] = calculateCurrentScene(this.frameCount);
 
-      if (_context.scene != i) {
+      if (_context.scene != i || _context.cycle != cycle) {
+        _context.cycle = cycle;
         // Changing scenes
 
         // Remove existing listeners
@@ -147,7 +156,7 @@ p5.prototype.chooseScene = function () {
         }
         // Check new scene(s)'s predicate
         let checked = [];
-        while (_context.sceneFs[i].if && _context.sceneFs[i].if()) {
+        while (_context.sceneFs[i].if && !_context.sceneFs[i].if()) {
           if (checked.includes((i + 1) % _context.sceneFs.length)) {
             // We've checked all scenes, none of them passed
             break;
@@ -155,7 +164,7 @@ p5.prototype.chooseScene = function () {
           checked.push(i);
           // skip to the start of the next scene
           skipToNextScene(this.frameCount, len);
-          [i, len] = calculateCurrentScene(this.frameCount);
+          [i, len, cycle] = calculateCurrentScene(this.frameCount);
         }
         // Add new scene's listeners
         if (_context.sceneFs[i].mousePressed) {
@@ -228,11 +237,9 @@ if (p5.registerAddon) {
   // p5 2.x
   const addon = function (p5, fn, lifecycles) {
     lifecycles.postdraw = p5.prototype.chooseScene;
-    lifecycles.remove = p5.prototype.chooseScene;
   };
   p5.registerAddon(addon);
 } else {
   // p5 1.x
   p5.prototype.registerMethod('post', p5.prototype.chooseScene);
-  p5.prototype.unregisterMethod('remove', p5.prototype.chooseScene);
 }
